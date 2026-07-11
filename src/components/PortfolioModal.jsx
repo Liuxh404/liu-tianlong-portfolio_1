@@ -15,7 +15,7 @@ export default function PortfolioModal({ isOpen, onClose }) {
         />
         <div className="hidden flex-col items-center justify-center min-h-[400px] bg-gray-900 text-gray-500 p-8">
           <p className="text-lg mb-2">请将作品集原图命名为 portfolio.jpg</p>
-          <p className="text-sm">放入 portfolio/public/ 目录后刷新页面</p>
+          <p className="text-sm">放入 public/ 目录后刷新页面</p>
         </div>
 
         <div className="px-2 md:px-8 py-4 md:py-8">

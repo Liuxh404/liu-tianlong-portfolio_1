@@ -20,7 +20,7 @@ export default function App() {
         />
         <div className="hidden flex-col items-center justify-center min-h-[600px] bg-gray-100 text-gray-500 p-8">
           <p className="text-lg mb-2">请将简历原图命名为 resume.jpg</p>
-          <p className="text-sm">放入 portfolio/public/ 目录后刷新页面</p>
+          <p className="text-sm">放入 public/ 目录后刷新页面</p>
         </div>
 
         <button
