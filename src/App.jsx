@@ -1,6 +1,26 @@
-import { useState } from "react";
-import PortfolioModal from "./components/PortfolioModal";
-import MCNModal from "./components/MCNModal";
+import { useState, lazy, Suspense } from "react";
+
+const PortfolioModal = lazy(() => import("./components/PortfolioModal"));
+const MCNModal = lazy(() => import("./components/MCNModal"));
+
+function ModalSkeleton({ bgColor }) {
+  return (
+    <div className={`fixed inset-0 z-50 flex items-start justify-center pt-[5vh] touch-none`}>
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+      <div
+        className={`relative w-full max-w-4xl max-h-[90vh] shadow-2xl ${bgColor}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className={`w-full max-h-[90vh] overflow-y-auto p-8 ${bgColor === "bg-black" ? "flex flex-col items-center justify-center" : ""}`}>
+          <div className="flex flex-col items-center">
+            <div className={`w-12 h-12 border-4 border-t-transparent rounded-full animate-spin ${bgColor === "bg-black" ? "border-white/30" : "border-gray-300"}`} />
+            <p className={`mt-4 text-sm ${bgColor === "bg-black" ? "text-gray-400" : "text-gray-500"}`}>加载中...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function App() {
   const [isPortfolioOpen, setIsPortfolioOpen] = useState(false);
@@ -13,6 +33,7 @@ export default function App() {
           src="/resume.jpg"
           alt="刘天龙个人简历"
           className="w-full h-auto block rounded-sm shadow-md"
+          loading="lazy"
           onError={(e) => {
             e.target.style.display = "none";
             e.target.nextSibling.style.display = "flex";
@@ -62,14 +83,18 @@ export default function App() {
         </button>
       </div>
 
-      <PortfolioModal
-        isOpen={isPortfolioOpen}
-        onClose={() => setIsPortfolioOpen(false)}
-      />
-      <MCNModal
-        isOpen={isMCNOpen}
-        onClose={() => setIsMCNOpen(false)}
-      />
+      <Suspense fallback={<ModalSkeleton bgColor="bg-black" />}>
+        <PortfolioModal
+          isOpen={isPortfolioOpen}
+          onClose={() => setIsPortfolioOpen(false)}
+        />
+      </Suspense>
+      <Suspense fallback={<ModalSkeleton bgColor="bg-white" />}>
+        <MCNModal
+          isOpen={isMCNOpen}
+          onClose={() => setIsMCNOpen(false)}
+        />
+      </Suspense>
     </div>
   );
 }
