@@ -23,7 +23,6 @@ export default function PortfolioModal({ isOpen, onClose }) {
             controls
             playsInline
             className="w-full h-auto rounded-lg shadow-lg"
-            poster="/portfolio.jpg"
             style={{ maxWidth: "100%" }}
           >
             <source src="/portfolio-video.mp4" type="video/mp4" />
